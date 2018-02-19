@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on teppay.github.io</title>
+    <link>https://teppay.github.io/posts/</link>
+    <description>Recent content in Posts on teppay.github.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 18 Feb 2018 22:51:52 +0900</lastBuildDate>
+    
+	<atom:link href="https://teppay.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>My First Post</title>
+      <link>https://teppay.github.io/posts/my-first-post/</link>
+      <pubDate>Sun, 18 Feb 2018 22:51:52 +0900</pubDate>
+      
+      <guid>https://teppay.github.io/posts/my-first-post/</guid>
+      <description> This is my First Post for Hugo </description>
+    </item>
+    
+  </channel>
+</rss>
