@@ -184,7 +184,7 @@ Anyway, I looked HTTP responce using &lsquo;Network&rsquo; Tab on Chrome DevTool
 
 <p>First of all, I extracted the given tgz file.</p>
 
-<pre><code class="language-bash">$ ll
+<pre><code>$ ll
 -rwxr-xr-x@ 1 teppay  staff   7.3K  5  2 05:37 broken
 -rw-r--r--@ 1 teppay  staff    79B  5  2 05:42 fragment_1.dat
 -rw-r--r--@ 1 teppay  staff    48B  5  2 05:46 fragment_2.dat
@@ -209,7 +209,7 @@ fragment_8.dat: data
 
 <p>Then, the result of <code>strings</code> given the <code>broken</code> file is following.</p>
 
-<pre><code class="language-bash">$ strings broken
+<pre><code>$ strings broken
 [snip]
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 [snip]
@@ -220,7 +220,7 @@ Then, I guessed that when <code>flagment-n.dat</code>s are put into the part fil
 
 <p>Sum of the file size of <code>flagment-n.dat</code>s is same as the length of <code>X</code>s.So, the guessing is maybe correct.</p>
 
-<pre><code class="language-bash">$ expr 79 + 48 + 175 + 42 + 128 + 22 + 283 + 30
+<pre><code>$ expr 79 + 48 + 175 + 42 + 128 + 22 + 283 + 30
 807
 </code></pre>
 
