@@ -4,7 +4,7 @@
          
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>DEF CON Quals 2018 Writeup</title>
+        <title>Find the Flag Earn Swag: intigriti Twitter challenge Writeup</title>
         <style>
 
     html body {
@@ -139,8 +139,8 @@
     
     
 
-    <h3><a href="https://teppay.github.io/posts/def-con-quals-2018-writeup/">DEF CON Quals 2018 Writeup</a></h3>
-    <h5>May 20, 2018</h5>
+    <h3><a href="https://teppay.github.io/posts/find-the-flag-earn-swag-writeup/">Find the Flag Earn Swag: intigriti Twitter challenge Writeup</a></h3>
+    <h5>January 23, 2019</h5>
     
     <a href="https://teppay.github.io/tags/ctf"><kbd class="item-tag">CTF</kbd></a>
     
@@ -152,167 +152,112 @@
 
     <br> <div class="text-justify">
 
-<h3 id="intro">Intro.</h3>
+<h3 id="intro">Intro</h3>
 
-<ul>
-<li>Recently, I have tried Permanent CTFs, but haven&rsquo;t participated CTF competitions.</li>
-<li>I participated DEF CON Quals 2018 alone.</li>
-</ul>
+<p>On the beginning of this month, intigriti held a challenge like CTF on Twitter. This article is my write-up of the challenge!</p>
 
-<h3 id="writeup">Writeup</h3>
+<p><blockquote class="twitter-tweet" data-lang="ja"><p lang="en" dir="ltr">CHALLENGE: FIND THE FLAG🚩 &amp; WIN🏆! There&#39;s a secret flag hidden in this tweet. Can you find it? 🕵️ Check the rules in the replies! 👇<a href="https://twitter.com/hashtag/HackWithIntigriti?src=hash&amp;ref_src=twsrc%5Etfw">#HackWithIntigriti</a> <a href="https://twitter.com/hashtag/BugBounty?src=hash&amp;ref_src=twsrc%5Etfw">#BugBounty</a> <a href="https://twitter.com/hashtag/CTF?src=hash&amp;ref_src=twsrc%5Etfw">#CTF</a> <a href="https://t.co/0PFZNd692W">https://t.co/0PFZNd692W</a></p>&mdash; intigriti (@intigriti) <a href="https://twitter.com/intigriti/status/1082979668972748803?ref_src=twsrc%5Etfw">2019年1月9日</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></p>
 
-<h4 id="you-already-know-warmup-101pt">You Already Know(warmup) - 101pt</h4>
+<h3 id="write-up">Write-up</h3>
+
+<p><img src="./Find-the-flag-earn-swag-Writeup_1.png" alt="image1" /></p>
+
+<h4 id="1-research-the-image-attached-the-tweet">1. Research the image attached the tweet</h4>
+
+<p>Embeddeding any files to Image file is a well-known method of steganography. So I researched the image attached to the tweet(attached.jpg) like below.</p>
+
+<pre><code>$ foremost attached.jpg
+Then, I got zip file and I got nottheflag.pdf from the zip.
+</code></pre>
+
+<p>The content of the pdf file is below</p>
 
 <blockquote>
-<p>Stop overthinking it, you already know the answer here.</p>
-
-<p>You already have the flag.</p>
-
-<p>Seriously, if you can read this, then you have the flag.</p>
+<p>aHR0cHM6Ly9nby5pbnRpZ3JpdGkuY29tLzA3YjBmTDI0bGttdmE=
+Source for this cool technique: <a href="https://twitter.com/David3141593/status/1058124224798380032">https://twitter.com/David3141593/status/1058124224798380032</a></p>
 </blockquote>
 
-<p>I have seen a problem like this on a write-up and I expected this problem so easy because the problem is <strong>warmup</strong>.<br />
-Anyway, I looked HTTP responce using &lsquo;Network&rsquo; Tab on Chrome DevTools and I found the comment-outed Flag.</p>
+<p>The pdf indicated a suspicious Base64 string and technical reference of the method for hidding the zip file.</p>
 
-<h4 id="elf-crumble-warmup-102pt">ELF Crumble(warmup) - 102pt</h4>
+<pre><code>$ echo &quot;aHR0cHM6Ly9nby5pbnRpZ3JpdGkuY29tLzA3YjBmTDI0bGttdmE=&quot; | base64 -D
+https://go.intigriti.com/07b0fL24lkmva
+I got a URL for next stage!
+</code></pre>
+
+<h4 id="2-data-zip">2. data.zip</h4>
+
+<p>I got data.zip from the URL.
+But this zip file was locked and I didn&rsquo;t know the password for the zip file&hellip;
+I stuck in this stage</p>
+
+<h4 id="3-research-the-tweet">3. Research the tweet</h4>
+
+<p>I went back to research the tweet.
+Then, the 2nd hint was published! So, I try to do like the hint: reply, click, look up.</p>
+
+<p><img src="./Find-the-flag-earn-swag-Writeup_2.png" alt="image1" /></p>
+
+<p>I clicked the link of image without any thinking and I noticed the URL was linked other account!!!</p>
+
+<p><img src="./Find-the-flag-earn-swag-Writeup_3.png" alt="image1" /></p>
+
+<p>And I got the password of the data.zip from the header image!!!!!!</p>
 
 <blockquote>
-<p>We prepared this beautiful binary that just printed for you the welcome flag, but it fell on the ground and broke into pieces.</p>
-
-<p>Luckily no instruction was broken, so I am sure you can just glue it back together</p>
-
-<p>Flag format is non-standard, there are no brackets.</p>
+<p>password: F1nDBuGz_</p>
 </blockquote>
 
-<p>First of all, I extracted the given tgz file.</p>
+<h4 id="4-data-zip-returns">4. data.zip returns!</h4>
 
-<pre><code>$ ll
--rwxr-xr-x@ 1 teppay  staff   7.3K  5  2 05:37 broken
--rw-r--r--@ 1 teppay  staff    79B  5  2 05:42 fragment_1.dat
--rw-r--r--@ 1 teppay  staff    48B  5  2 05:46 fragment_2.dat
--rw-r--r--@ 1 teppay  staff   175B  5  2 05:47 fragment_3.dat
--rw-r--r--@ 1 teppay  staff    42B  5  2 05:48 fragment_4.dat
--rw-r--r--@ 1 teppay  staff   128B  5  2 05:56 fragment_5.dat
--rw-r--r--@ 1 teppay  staff    22B  5  2 05:56 fragment_6.dat
--rw-r--r--@ 1 teppay  staff   283B  5  2 06:00 fragment_7.dat
--rw-r--r--@ 1 teppay  staff    30B  5  2 06:00 fragment_8.dat
+<p>I unzipped the zip file using the password and I got 441 jpg files.</p>
 
-$ file *
-broken:         ELF 32-bit LSB shared object, Intel 80386, version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=4cd47d8a237a3139d1884b3ef52f6ed387c75772, not stripped
-fragment_1.dat: data
-fragment_2.dat: data
-fragment_3.dat: data
-fragment_4.dat: data
-fragment_5.dat: data
-fragment_6.dat: data
-fragment_7.dat: data
-fragment_8.dat: data
+<p><img src="./Find-the-flag-earn-swag-Writeup_4.png" alt="image1" /></p>
+
+<h4 id="5-441-jpg-files">5. 441 jpg files</h4>
+
+<p>I noticed immediately that the many files is parts of QR code.
+That&rsquo;s because 441 = 21*21, all the images are black or white, and challenges related QR code are often seen in some CTFs.
+Therefore, I wrote python script to solve it. The script is below</p>
+
+<pre><code class="language-py">#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from PIL import Image
+from pyzbar.pyzbar import decode
+
+def main():
+    src_imgs = []
+    for i in range(441):
+        src_imgs.append(Image.open(f'data/1_{str(i+1).zfill(2)}.jpg'))
+
+    src_w = src_imgs[0].width
+    src_h = src_imgs[0].height
+
+    dst_img = Image.new('RGB', (src_w*21, src_h*21))
+
+    for i in range(441):
+        idx_x = i % 21
+        idx_y = int(i / 21)
+        x = idx_x * src_w
+        y = idx_y * src_h
+        dst_img.paste(src_imgs[i], (x,y))
+
+    dst_img.save('qr.jpg')
+
+    data = decode(dst_img)
+    print(data[0][0])
+
+
+if __name__ == '__main__':
+    main()
+
 </code></pre>
 
-<p>Then, the result of <code>strings</code> given the <code>broken</code> file is following.</p>
+<p><img src="./Find-the-flag-earn-swag-Writeup_qr.png" alt="image1" /></p>
 
-<pre><code>$ strings broken
-[snip]
-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-[snip]
-</code></pre>
-
-<p>It showed <code>X</code> of 807 Bytes which is apparently suspicious.<br />
-Then, I guessed that when <code>flagment-n.dat</code>s are put into the part filled by <code>X</code>s, the <code>broken</code> will be <strong>executable</strong>.</p>
-
-<p>Sum of the file size of <code>flagment-n.dat</code>s is same as the length of <code>X</code>s.So, the guessing is maybe correct.</p>
-
-<pre><code>$ expr 79 + 48 + 175 + 42 + 128 + 22 + 283 + 30
-807
-</code></pre>
-
-<p>Therefore, I guessed that I should put <code>flagment-n.dat</code>s into the part filled by <code>X</code>s in the right order.</p>
-
-<p>Next, I gave <code>broken</code> to <code>objdump</code>. It is found that following 5 functions are filled by <code>X</code>s.</p>
-
-<ul>
-<li>f1</li>
-<li>f2</li>
-<li>f3</li>
-<li>recover_flag</li>
-<li>main</li>
-</ul>
-
-<p>And, the size of these functions are written below.</p>
-
-<ul>
-<li>f1 316Byte  (0x5ad~0x6e8)</li>
-<li>f2 69Bytes  (0x6e9~0x72d)</li>
-<li>f3 116Bytes (0x72e~0x7a1)</li>
-<li>recover_flag 58Bytes(0x7a2~0x7db)</li>
-<li>main 248Bytes(0x7dc~0x8d3)</li>
-</ul>
-
-<p>Next, I will research <code>flagment_n.dat</code>s.</p>
-
-<p><code>objdump</code> can&rsquo;t open the files, but <code>IDA</code> can open them.  Using <code>IDA</code>, I researched the structure of <code>flagment_n.dat</code>s.</p>
-
-<h5 id="fragment-1-dat">fragment_1.dat</h5>
-
-<ul>
-<li>end of a function(3Bytes)|a function(69Bytes)|top of a function(5Bytes)</li>
-</ul>
-
-<h5 id="fragment-2-dat">fragment_2.dat</h5>
-
-<ul>
-<li>end of a function(11Bytes)|top of a function(26Bytes)</li>
-</ul>
-
-<h5 id="fragment-3-dat">fragment_3.dat</h5>
-
-<ul>
-<li>middle of a function(175Bytes)</li>
-</ul>
-
-<h5 id="fragment-4-dat">fragment_4.dat</h5>
-
-<ul>
-<li>end of a function(42Bytes)</li>
-</ul>
-
-<h5 id="fragment-5-dat">fragment_5.dat</h5>
-
-<ul>
-<li>end of a function(109Bytes)|top of a function(17Bytes)</li>
-</ul>
-
-<h5 id="fragment-6-dat">fragment_6.dat</h5>
-
-<ul>
-<li>middle of a function(20Bytes)</li>
-</ul>
-
-<h5 id="fragment-7-dat">fragment_7.dat</h5>
-
-<ul>
-<li>middle of function(281Bytes)</li>
-</ul>
-
-<h5 id="fragment-8-dat">fragment_8.dat</h5>
-
-<ul>
-<li>top of function(29Bytes)</li>
-</ul>
-
-<p>According to the size of functions and the structures of <code>flagment_n.dat</code>s, the correct order of the <strong>flagments</strong> is <code>{8,7,1,5,6,2,3,4}</code></p>
-
-<p>I created a file <code>piece</code> gluing these files.</p>
-
-<pre><code>$ cat fragment_8.dat fragment_7.dat fragment_1.dat fragment_5.dat fragment_6.dat fragment_2.dat fragment_3.dat fragment_4.dat &gt; piece
-</code></pre>
-
-<p>Although I wanted to use smarter way, I copied and pasted the file to the part filled by <code>X</code>s in the <code>broken</code> because I didn&rsquo;t know what to do. And I saved the file as <code>notbroken</code></p>
-
-<pre><code>$ ./notbroken
-</code></pre>
-
-<p>When the file executed, the Flag was printed.</p>
+<p>And I got a flag!!!!!!!
+<code>FLAG:YOUWINTIGRITI</code></p>
 </div>
 
     
@@ -331,8 +276,8 @@ Then, I guessed that when <code>flagment-n.dat</code>s are put into the part fil
     
     
 
-    <h3><a href="https://teppay.github.io/posts/find-the-flag-earn-swag-writeup/">Find the Flag Earn Swag: intigriti Twitter challenge Writeup</a></h3>
-    <h5>January 23, 2019</h5>
+    <h3><a href="https://teppay.github.io/posts/def-con-quals-2018-writeup/">DEF CON Quals 2018 Writeup</a></h3>
+    <h5>May 20, 2018</h5>
     
     <a href="https://teppay.github.io/tags/ctf"><kbd class="item-tag">CTF</kbd></a>
     

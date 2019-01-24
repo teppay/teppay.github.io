@@ -6,10 +6,22 @@
     <description>Recent content in Posts on teppay.github.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 20 May 2018 18:27:16 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 23 Jan 2019 17:27:31 +0900</lastBuildDate>
     
 	<atom:link href="https://teppay.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Find the Flag Earn Swag: intigriti Twitter challenge Writeup</title>
+      <link>https://teppay.github.io/posts/find-the-flag-earn-swag-writeup/</link>
+      <pubDate>Wed, 23 Jan 2019 17:27:31 +0900</pubDate>
+      
+      <guid>https://teppay.github.io/posts/find-the-flag-earn-swag-writeup/</guid>
+      <description>Intro On the beginning of this month, intigriti held a challenge like CTF on Twitter. This article is my write-up of the challenge!
+CHALLENGE: FIND THE FLAG🚩 &amp;amp; WIN🏆! There&amp;#39;s a secret flag hidden in this tweet. Can you find it? 🕵️ Check the rules in the replies! 👇#HackWithIntigriti #BugBounty #CTF https://t.co/0PFZNd692W
+&amp;mdash; intigriti (@intigriti) 2019年1月9日 
+Write-up 1. Research the image attached the tweet Embeddeding any files to Image file is a well-known method of steganography.</description>
+    </item>
     
     <item>
       <title>DEF CON Quals 2018 Writeup</title>
